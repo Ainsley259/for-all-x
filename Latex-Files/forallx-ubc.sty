@@ -1,5 +1,6 @@
 %!TEX root = forallx-ubc.tex
 \NeedsTeXFormat{LaTeX2e}
+\usepackage{comment}
 \ProvidesPackage{forallx-ubc}[2011/10/29 support for a logic textbook]
 \usepackage[dvipsnames]{xcolor}
 \RequirePackage{adjustbox, amssymb,amsmath,lmodern,microtype,multicol,ifthen,prooftrees,titlesec, apptools}
@@ -35,11 +36,11 @@
 \def\eor{\ensuremath{\vee}}
 % conjunction: 
 % {\,^{_{_{_{_{\mbox{\footnotesize\textbullet}}}}}}} gives the dot
-\def\eand{\ensuremath{\,\&\,}}
+\def\eand{\ensuremath{\wedge}}
 % conditional: \supset gives the horseshoe
-\def\eif{\ensuremath{\supset}}
+\def\eif{\ensuremath{\to}}
 % biconditional: \equiv gives the triple bar
-\def\eiff{\ensuremath{\equiv}}
+\def\eiff{\ensuremath{\leftrightarrow}}
 % negation: {\sim} gives the swung dash 
 \def\enot{\ensuremath{\neg}}
 
@@ -226,11 +227,13 @@
 \renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
 %\renewcommand{\thesubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}}
 
+\begin{comment}
 \renewcommand{\chaptermark}[1]{\markboth%
 {\forallx}%
 {\textrm{ch.~\thechapter\ \lowercase{#1}}}%
 }
 \renewcommand{\sectionmark}[1]{}
+\end{comment}
 
 % Slightly decrease the spacing between the numbers of (sub)sections
 % and the name of the (sub)section to avoid overfull hboxes.
@@ -271,11 +274,25 @@
 %    *                PROOFS                *
 %    ****************************************
 
+
+% Tree stuff
+
+\forestset{
+	default preamble={
+	single branches,
+	close with=\ensuremath{\times},
+	just sep=1.75em,
+	line no sep=1.75em
+	}
+}
+
+
+
 % notation to indicate substitution instances
 % A\substitute{x}{c} is the wff obtained by replacing all instances of x in A with c
 % A\substitutesome{x}{c} is a wff obtained by replacing some or all instances of x in A with c
 
-\newcommand{\substitute}[2]{\hspace{.15em}\raisebox{.3ex}{\fbox{$#1\Rightarrow#2$}}}
+\newcommand{\substitute}[2]{\hspace{.15em}\raisebox{.3ex}{$(#1:=#2)$}}
 \newcommand{\substitutesome}[2]{\hspace{.15em}\raisebox{.4ex}{\fbox{\fbox{$#1\Rightarrow#2$}}}}
 
 % based on fitch.sty by Peter Selinger, University of Ottawa
@@ -724,14 +741,3 @@
 
 
 
-
-% Tree stuff
-
-\forestset{
-	default preamble={
-	single branches,
-	close with=\ensuremath{\times},
-	just sep=1.75em,
-	line no sep=1.75em
-	}
-}
